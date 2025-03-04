@@ -1,10 +1,19 @@
 import { useState } from "react";
 import "./styles.css";
 
-function AccordionItem({ num, title, text }) {
-  const [isOpen, setIsOpen] = useState(false);
+function AccordionItem({
+  num,
+  title,
+  //text,
+  curOpen,
+  onOpen,
+  children,
+}) {
+  //const [isOpen, setIsOpen] = useState(false);
+  const isOpen = num === curOpen;
   function handleToggle() {
-    setIsOpen((isOpen) => !isOpen);
+    // setIsOpen((isOpen) => !isOpen);
+    onOpen(isOpen ? null : num);
   }
   return (
     //it is on the div that we will listen to the event:onClick={handleToggle}
@@ -14,7 +23,7 @@ function AccordionItem({ num, title, text }) {
       <p className="num">{num < 9 ? `0${num + 1}` : num + 1}</p>
       <p className="title">{title}</p>
       <p className="icon">{isOpen ? "-" : "+"}</p>
-      {isOpen && <div className="content-box">{text}</div>}
+      {isOpen && <div className="content-box">{children}</div>}
     </div>
   );
 }
